@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>struts2_spring</display-name>
+  <!-- spring -->
+   <!-- 
+	 如果我们想在服务器一启动就可以让spring容器自动去加载我们在配置文件中配置的bean，
+	 那么我们要在web.xml中去配置一个监听器，这个监听器的作用是监听我们的application，
+	 一旦我们的项目启动就触发了监听器，我们来看一下这个监听器的配置
+   -->
+	<listener>
+	     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 如果你的配置文件不想放在默认的位置，而是自己去指定位置，那么我们将要在web.xml中再次配置如下 -->
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <!-- 这种配置可以指定多个配置文件，因为spring的配置文件可以分开写成好几个 -->
+	    <!-- <param-value>/WEB-INF/applicationContext-*.xml,classpath*:applicationContext-*.xml</param-value> -->
+	    <!-- 指定spring配置文件的位置classpath下的beans.xml -->
+	    <param-value>/WEB-INF/spring/applicationContext.xml</param-value>
+	    <!-- <param-value>classpath:applicationContext.xml</param-value> -->
+	</context-param>
+	
+	<!-- struts2 -->
+	<filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>
+            org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+	<welcome-file-list>
+	  <welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+  
+</web-app>
